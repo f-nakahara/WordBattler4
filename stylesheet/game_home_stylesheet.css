@@ -1,0 +1,18 @@
+.game_title {
+  font-size: 30px;
+  text-align: center;
+  background-color: #4172b3; }
+
+.contents {
+  margin-top: 60px; }
+  .contents .player1_button {
+    float: left;
+    padding-left: 40%; }
+  .contents .player2_button {
+    float: right;
+    padding-right: 40%; }
+  .contents .chat_button {
+    padding-top: 50px;
+    text-align: center; }
+
+/*# sourceMappingURL=game_home_stylesheet.css.map */

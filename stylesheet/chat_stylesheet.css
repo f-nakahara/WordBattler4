@@ -1,0 +1,16 @@
+header .home-icon {
+  background-color: #3ede7a; }
+
+.header {
+  text-align: center; }
+
+.main .player1_chat {
+  width: 30%;
+  margin-left: 20%;
+  float: left; }
+.main .player2_chat {
+  width: 30%;
+  margin-right: 20%;
+  float: right; }
+
+/*# sourceMappingURL=chat_stylesheet.css.map */

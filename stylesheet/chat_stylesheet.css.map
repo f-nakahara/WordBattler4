@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,iBAAW;EACT,gBAAgB,EAAE,OAAiB;;AAIvC,OAAQ;EACN,UAAU,EAAE,MAAM;;AAIlB,mBAAc;EACZ,KAAK,EAAC,GAAG;EACT,WAAW,EAAE,GAAG;EAChB,KAAK,EAAE,IAAI;AAGb,mBAAc;EACZ,KAAK,EAAC,GAAG;EACT,YAAY,EAAE,GAAG;EACjB,KAAK,EAAE,KAAK",
+"sources": ["chat_stylesheet.scss"],
+"names": [],
+"file": "chat_stylesheet.css"
+}
