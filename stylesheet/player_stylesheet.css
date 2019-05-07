@@ -1,12 +1,30 @@
 .header {
   text-align: center; }
+  .header .home_bt {
+    display: inline-block; }
+  .header .replay_bt {
+    display: inline-block; }
 
 .main {
-  margin-top: 50px;
+  position: fixed;
+  top: 80%;
+  left: 42%;
   text-align: center; }
 
 .input_word {
-  margin-top: 20px;
+  position: fixed;
+  top: 85%;
+  left: 44%;
   text-align: center; }
+
+.button {
+  position: fixed;
+  top: 90%;
+  left: 42%;
+  text-align: center; }
+  .button .home_bt {
+    display: inline-block; }
+  .button .replay_bt {
+    display: inline-block; }
 
 /*# sourceMappingURL=player_stylesheet.css.map */

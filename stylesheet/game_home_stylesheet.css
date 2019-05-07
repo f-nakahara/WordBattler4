@@ -4,15 +4,12 @@
   background-color: #4172b3; }
 
 .contents {
-  margin-top: 60px; }
-  .contents .player1_button {
-    float: left;
-    padding-left: 40%; }
-  .contents .player2_button {
-    float: right;
-    padding-right: 40%; }
-  .contents .chat_button {
-    padding-top: 50px;
-    text-align: center; }
+  margin-top: 60px;
+  text-align: center; }
+  .contents .player_bt .player1_button {
+    display: inline-block; }
+  .contents .player_bt .player2_button {
+    display: inline-block;
+    margin-bottom: 5px; }
 
 /*# sourceMappingURL=game_home_stylesheet.css.map */

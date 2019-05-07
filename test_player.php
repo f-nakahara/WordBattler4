@@ -1,20 +1,13 @@
 <?php
 $hp=0;
-if(isset($_POST["player1"])){
+if(isset($_POST["player2"])){
   $enemy_list=array("enemy/enemy01.txt","enemy/enemy02.txt","enemy/enemy03.txt");
   $select_enemy=array_rand($enemy_list,1);
-  file_put_contents("p1_word.txt","");
+  file_put_contents("p2_word.txt","");
   $boss=file_get_contents($enemy_list[$select_enemy]);
   file_put_contents("enemy/HitPoint.txt",$boss);
 }
-$enemy_hp=file_get_contents("enemy/HitPoint.txt");
-if((isset($_POST["word1"])) && ($_POST["word1"] != "")){
-    file_put_contents("enemy/HitPoint.txt",$enemy_hp-1);
-}
-  $enemy_hp=file_get_contents("enemy/HitPoint.txt");
-  if($enemy_hp<=0){
-    $hp=1;
-  }
+
 ?>
 
 <!DOCTYPE html>
@@ -25,11 +18,11 @@ if((isset($_POST["word1"])) && ($_POST["word1"] != "")){
 
   <link rel="stylesheet" href="stylesheet/enemy.css">
   <link rel="stylesheet" href="stylesheet/player_stylesheet.css">
-  <title>プレイヤー1</title>
+  <title>プレイヤー2</title>
 </head>
 <body>
   <div class="header">
-    <h1>プレイヤー1</h1>
+    <h1>プレイヤー2</h1>
     <p>お題に近い言葉を入力してください</p>
 
   </div>
@@ -40,31 +33,47 @@ if((isset($_POST["word1"])) && ($_POST["word1"] != "")){
     ?>
   </div>
   <div class="enemy_hp" id="enemy_hp"></div>
+
   <div class="main">
-    <form action="player1.php"  method="post">
-      <input type="text" name="word1" id="word1">
-      <input type="submit"  value="送信">
+    <form action="#" method="post">
+      <input type="text" name="word2" id="word2">
+      <input type="submit" value="送信">
     </form>
   </div>
+  <div id="submit_word"></div>
 
-  <?php
-  if((isset($_POST["word1"])) && ($_POST["word1"] != "")){
-    $set_word=$_POST["word1"]."<br>";
-    file_put_contents("p1_word.txt",$set_word,FILE_APPEND);
-    echo '<div class="input_word">入力したワード：'.$set_word.'</div>' ;
-  }
-  ?>
+  <script>
+    (function(){
+      $("#word2").on("click",function(){
+        $.ajax({
+          url:"ajax.php",
+          type:"POST",
+          data:{
+            "id":"set_word2",
+            "word2":$("#word2").val()
+          }
+        })
+        .done((data)=>{
+          $("#submit_word").html(data);
+        });
+      });
+    })
+  </script>
+
+
   <div class="button">
     <form action="game_home.html" class="home_bt">
       <input type="submit" value="ホームに戻る">
     </form>
-    <form action="player1.php" method="post" class="replay_bt">
-      <input type="submit" name="player1" value="もう一度遊ぶ">
+    <form action="test_player.php" method="post" class="replay_bt">
+      <input type="submit" name="player2" value="もう一度遊ぶ">
     </form>
   </div>
+
   <script>
-  document.getElementById('word1').focus();
+  document.getElementById('word2').focus();
   </script>
+
   <script>
   $(function(){
     setInterval(function(){

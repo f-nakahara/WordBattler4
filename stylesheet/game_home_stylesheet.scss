@@ -6,19 +6,21 @@
 
 .contents {
   margin-top: 60px;
+  text-align: center;
 
-  .player1_button {
-    float: left;
-    padding-left: 40%;
-  }
 
-  .player2_button {
-    float: right;
-    padding-right: 40%;
-  }
+  .player_bt {
+    .player1_button {
+      display: inline-block;
+    }
 
-  .chat_button {
-    padding-top: 50px;
-    text-align: center;
+    .player2_button {
+      display: inline-block;
+      margin-bottom:5px;
+    }
+
+    .chat_button {
+
+    }
   }
 }

@@ -1,13 +1,43 @@
 .header {
   text-align: center;
+
+  .home_bt {
+    // float:left;
+    display: inline-block;
+  }
+
+  .replay_bt {
+    // float:right;
+    display: inline-block;
+  }
 }
 
 .main {
-  margin-top: 50px;
+  position: fixed;
+  top: 80%;
+  left:42%;
   text-align: center;
 }
 
-.input_word{
-  margin-top:20px;
+.input_word {
+  position: fixed;
+  top: 85%;
+  left:44%;
   text-align: center;
+
+}
+
+.button {
+  position: fixed;
+  top:90%;
+  left:42%;
+  text-align: center;
+  .home_bt {
+    display: inline-block;
+
+  }
+
+  .replay_bt {
+    display: inline-block;
+  }
 }

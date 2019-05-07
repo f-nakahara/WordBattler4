@@ -5,12 +5,17 @@ header .home-icon {
   text-align: center; }
 
 .main .player1_chat {
-  width: 30%;
-  margin-left: 20%;
+  width: 20%;
+  word-wrap: break-word;
+  margin-left: 10%;
   float: left; }
+.main .enemy_hp {
+  position: absolute;
+  top: 40%; }
 .main .player2_chat {
-  width: 30%;
-  margin-right: 20%;
+  width: 20%;
+  word-wrap: break-word;
+  margin-right: 10%;
   float: right; }
 
 /*# sourceMappingURL=chat_stylesheet.css.map */
