@@ -12,10 +12,6 @@ $enemy_hp=file_get_contents("enemy/HitPoint.txt");
 if((isset($_POST["word2"])) && ($_POST["word2"] != "")){
     file_put_contents("enemy/HitPoint.txt",$enemy_hp-1);
 }
-$enemy_hp=file_get_contents("enemy/HitPoint.txt");
-if($enemy_hp<=0){
-  $hp=1;
-}
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +19,7 @@ if($enemy_hp<=0){
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <meta charset="UTF-8">
-
+  <script src="./ajax.js"></script>
   <link rel="stylesheet" href="stylesheet/enemy.css">
   <link rel="stylesheet" href="stylesheet/player_stylesheet.css">
   <title>プレイヤー2</title>
@@ -34,13 +30,14 @@ if($enemy_hp<=0){
     <p>お題に近い言葉を入力してください</p>
 
   </div>
-  <div class="game_clear">
-    <?php if($hp==1){
-      echo "GAME CLEAR!!";
+  <div class="enemy_hp" id="enemy_hp">
+    <?php
+    $enemy_hp=file_get_contents("enemy/HitPoint.txt");
+    for($i=0; $i<$enemy_hp; $i++){
+      echo "■";
     }
-    ?>
+     ?>
   </div>
-  <div class="enemy_hp" id="enemy_hp"></div>
 
   <div class="main">
     <form action="player2.php"  method="post">
@@ -66,26 +63,6 @@ if($enemy_hp<=0){
     </form>
   </div>
 
-  <script>
-  document.getElementById('word2').focus();
-  </script>
-  <script>
-  $(function(){
-    setInterval(function(){
-      $.ajax({
-        url:"ajax.php",
-        type:"POST",
-        data:{
-          "id":"enemy_hp"
-        }
-      })
-      .done((data)=>{
-        $("#enemy_hp").html(data);
-        console.log(data);
-      });
-    },100);
-  });
-  </script>
-
+  <script>document.getElementById('word2').focus();</script>
 </body>
 </html>

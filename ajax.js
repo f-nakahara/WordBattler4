@@ -1,0 +1,16 @@
+//敵の体力を表示する
+$(function(){
+  setInterval(function(){
+    $.ajax({
+      url:"ajax.php",
+      type:"POST",
+      data:{
+        "id":"enemy_hp"
+      }
+    })
+    .done((data)=>{
+      $("#enemy_hp").html(data);
+      console.log(data);
+    });
+  },100);
+});
