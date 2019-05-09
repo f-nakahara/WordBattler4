@@ -12,6 +12,10 @@ header .home-icon {
 .main .enemy_hp {
   position: absolute;
   top: 40%; }
+.main .home_bt {
+  position: fixed;
+  top: 70%;
+  left: 45%; }
 .main .player2_chat {
   width: 20%;
   word-wrap: break-word;
