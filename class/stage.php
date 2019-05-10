@@ -1,10 +1,11 @@
 <?php
   class Stage{
-    public static $stage=0;
+    public static $count=0;
     public function __construct($stage){
+      echo self::$count;
       //1番目のステージ
-      if($stage==1){
-        self::$stage=1;
+      self::$count++;
+      if(self::$count==1){
         $enemy_list=array("enemy/first_enemy/enemy01.txt","enemy/first_enemy/enemy02.txt");
         shuffle($enemy_list);
         $enemy_info=array_rand($enemy_list,1);
@@ -13,7 +14,7 @@
       }
 
       //2番目のステージ
-      if($stage==2){
+      if(self::$count==2){
         $enemy_list=array("enemy/second_enemy/enemy01.txt","enemy/second_enemy/enemy02.txt");
         shuffle($enemy_list);
         $enemy_info=array_rand($enemy_list,1);

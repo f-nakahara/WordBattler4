@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <script src="./ajax.js"></script>
+  <link rel="stylesheet" href="stylesheet/enemy.css">
+  <link rel="stylesheet" href="stylesheet/player_stylesheet.css">
+  <title>プレイヤー1</title>
+</head>
+<body>
+  <div class="header">
+    <h1>プレイヤー1</h1>
+    <p>お題に近い言葉を入力してください</p>
+  </div>
+
+  <!-- 敵HPの表示 -->
+  <div class="enemy_hp" id="enemy_hp"></div>
+
+  <div class="main">
+    <!-- 入力フォーム -->
+    <form action=""  method="post" id="p1_set_word">
+      <input type="text" name="word1" id="word1">
+      <input type="submit"  value="送信">
+    </form>
+
+    <div id="p1_input_word"></div>
+  </div>
+
+  <div class="button">
+    <!-- ホームに戻るボタン -->
+    <form action="game_home.html" class="home_bt" id="p1_home">
+      <input type="submit" value="ホームに戻る">
+    </form>
+    <!-- もう一度遊ぶボタン -->
+    <form action="player1.html" method="post" class="replay_bt" id="p1_replay">
+      <input type="submit" name="player1" id="player1" value="もう一度遊ぶ">
+    </form>
+
+    <form action="player1.html" method="post" class="replay_bt" id="p1_next_stage">
+      <input type="submit" name="next_stage" id="next_stage" value="次">
+    </form>
+
+  </div>
+</body>
+</html>

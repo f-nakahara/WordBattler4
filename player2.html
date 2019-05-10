@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <script src="./ajax.js"></script>
+  <link rel="stylesheet" href="stylesheet/enemy.css">
+  <link rel="stylesheet" href="stylesheet/player_stylesheet.css">
+  <title>プレイヤー2</title>
+</head>
+<body>
+  <div class="header">
+    <h1>プレイヤー2</h1>
+    <p>お題に近い言葉を入力してください</p>
+
+  </div>
+  <!-- 敵HPの表示 -->
+  <div class="enemy_hp" id="enemy_hp"></div>
+
+  <div class="main">
+    <!-- 入力フォーム -->
+    <form action="player2.php"  method="post" id="p2_set_word">
+      <input type="text" name="word2" id="word2">
+      <input type="submit" value="送信">
+    </form>
+
+    <div id="p2_input_word"></div>
+  </div>
+
+
+  <div class="button">
+    <!-- ホームに戻るボタン -->
+    <form action="game_home.html" class="home_bt" id="p2_home">
+      <input type="submit" value="ホームに戻る">
+    </form>
+    <!-- もう一度遊ぶボタン -->
+    <form action="player2.html" method="post" class="replay_bt" id="p2_replay">
+      <input type="submit" name="player2" id="player2" value="もう一度遊ぶ">
+    </form>
+  </div>
+</body>
+</html>

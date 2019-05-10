@@ -1,10 +1,11 @@
 <?php
 require "class/stage.php";
   //プレイヤー選択画面、またはもう一度遊ぶボタンを押したら
-  if((isset($_POST["player2"])) || (isset($_POST["second"])) || (isset($_POST["third"])) ){
-    if(isset($_POST["player2"])){
-      $stage = new Stage(1);
+  if((isset($_POST["player1"])) || (isset($_POST["second"])) || (isset($_POST["third"])) ){
 
+    //ステージの設定
+    if(isset($_POST["player1"])){
+      $stage = new Stage(1);
     }
     if(isset($_POST["second"])){
       $stage = new Stage(2);
@@ -12,38 +13,38 @@ require "class/stage.php";
     if(isset($_POST["third"])){
       $stage = new Stage(3);
     }
-
     //テキストファイルの初期化
-    file_put_contents("p2_word.txt","");
+    file_put_contents("p1_word.txt","");
+}
+  //敵のHPを取得
+  $enemy_hp=file_get_contents("enemy/HitPoint.txt");
+  if($enemy_hp<=1){
+    $level=2;
+  }
+  //文字がセットされたら、敵HPを1減らしてHitPoint.txtを上書き
+  if((isset($_POST["word1"])) && ($_POST["word1"] != "")){
+      file_put_contents("enemy/HitPoint.txt",$enemy_hp-1);
   }
 
-//敵のHPを取得
-$enemy_hp=file_get_contents("enemy/HitPoint.txt");
-//文字がセットされたら、敵HPを1減らしてHitPoint.txtを上書き
-if((isset($_POST["word2"])) && ($_POST["word2"] != "")){
-    file_put_contents("enemy/HitPoint.txt",$enemy_hp-1);
-    if($enemy_hp<1){
-      $stage+=1;
-  }
-}
-?>
+  ?>
 
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="my.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <meta charset="UTF-8">
   <script src="./ajax.js"></script>
   <link rel="stylesheet" href="stylesheet/enemy.css">
   <link rel="stylesheet" href="stylesheet/player_stylesheet.css">
-  <title>プレイヤー2</title>
+  <title>プレイヤー1</title>
 </head>
 <body>
   <div class="header">
-    <h1>プレイヤー2</h1>
+    <h1 id="p1">プレイヤー1</h1>
     <p>お題に近い言葉を入力してください</p>
-
   </div>
+
   <!-- 敵HPの表示 -->
   <div class="enemy_hp" id="enemy_hp">
     <?php
@@ -55,24 +56,36 @@ if((isset($_POST["word2"])) && ($_POST["word2"] != "")){
   </div>
   <div class="next_stage_bt">
     <?php if($enemy_hp<=1): ?>
-    <form action="player2.php"  method="post">
+    <form action="player1.php"  method="post">
       <input type="submit" name="second" value="次のステージに進む！">
     </form>
   <?php endif ?>
+  <?php if($enemy_hp<=1 ): ?>
+  <form action="test_player.php"  method="post">
+    <input type="submit" name="third" value="次のステージに進む！">
+  </form>
+<?php endif ?>
 
+  </div>
   <div class="main">
     <!-- 入力フォーム -->
-    <form action="player2.php"  method="post">
-      <input type="text" name="word2" id="word2">
-      <input type="submit" value="送信">
+    <form id="word1_form">
+      <input type="text" name="word1" id="word1">
     </form>
   </div>
 
+  <script>
+    $("#word1_form").on("submit",function(){
+      $.post("test_player.php",
+      "word1":$("#word1"),val())
+    });
+  </script>
+
   <?php
   //入力した文字をプレイヤー1のテキストファイルに追加する
-  if((isset($_POST["word2"])) && ($_POST["word2"]) != ""){
-    $set_word=$_POST["word2"]."<br>";
-    file_put_contents("p2_word.txt",$set_word,FILE_APPEND);
+  if((isset($_POST["word1"])) && ($_POST["word1"] != "")){
+    $set_word=$_POST["word1"]."<br>";
+    file_put_contents("p1_word.txt",$set_word,FILE_APPEND);
     // 最後に入力した文字を表示する
     echo '<div class="input_word">入力したワード：'.$set_word.'</div>' ;
   }
@@ -84,11 +97,11 @@ if((isset($_POST["word2"])) && ($_POST["word2"] != "")){
       <input type="submit" value="ホームに戻る">
     </form>
     <!-- もう一度遊ぶボタン -->
-    <form action="player2.php" method="post" class="replay_bt">
-      <input type="submit" name="player2" value="もう一度遊ぶ">
+    <form action="test_player.php" method="post" class="replay_bt">
+      <input type="submit" name="player1" value="もう一度遊ぶ">
     </form>
   </div>
   <!-- カーソルをあらかじめセットしておく -->
-  <script>document.getElementById('word2').focus();</script>
+  <script>document.getElementById('word1').focus();</script>
 </body>
 </html>
