@@ -1,7 +1,7 @@
 function set_terms() {
   var time = 0;
     $.ajax({
-        url: "ajax.php",
+        url: "php/ajax.php",
         type: "POST",
         data: {
           "id": "start_check"
@@ -23,7 +23,7 @@ function set_terms() {
                 opacity: 0
               }, 2000)
             $.ajax({
-                url: "ajax.php",
+                url: "php/ajax.php",
                 type: "POST",
                 data: {
                   "id": "set_terms"
@@ -59,7 +59,7 @@ function set_terms() {
                 $("#word2").prop("disabled", true);
               }
               $.ajax({
-                url:"ajax.php",
+                url:"php/ajax.php",
                 type:"POST",
                 data:{
                   "id":"check_enemy_hp"
@@ -87,7 +87,7 @@ function next_stage() {
     $("#next_stage").on("submit", function(event) {
       event.preventDefault();
       $.ajax({
-          url: "ajax.php",
+          url: "php/ajax.php",
           type: "POST",
           data: {
             "id": "p1_init",
@@ -103,7 +103,7 @@ function next_stage() {
 
 function set_next_bt() {
   $.ajax({
-      url: "ajax.php",
+      url: "php/ajax.php",
       type: "POST",
       data: {
         "id": "check_enemy_hp",
@@ -120,7 +120,7 @@ function set_next_bt() {
 
 function set_enemy_hp() {
   $.ajax({
-      url: "ajax.php",
+      url: "php/ajax.php",
       type: "POST",
       data: {
         "id": "enemy_hp"
@@ -135,7 +135,7 @@ function set_enemy_hp() {
 
 function set_enemy_img() {
   $.ajax({
-      url: "ajax.php",
+      url: "php/ajax.php",
       type: "POST",
       data: {
         "id": "enemy_img"
@@ -158,7 +158,7 @@ function chat_process(){
 function p1_init_process() {
   $("#p1_replay").on("submit", function(event) {
     $.ajax({
-        url: "ajax.php",
+        url: "php/ajax.php",
         type: "POST",
         data: {
           "id": "p1_init",
@@ -172,7 +172,7 @@ function p1_init_process() {
   });
   $("#p1_home").on("submit", function(event) {
     $.ajax({
-        url: "ajax.php",
+        url: "php/ajax.php",
         type: "POST",
         data: {
           "id": "p1_init"
@@ -188,7 +188,7 @@ function p2_init_process() {
   $("#p2_replay").on("submit", function(event) {
 
     $.ajax({
-        url: "ajax.php",
+        url: "php/ajax.php",
         type: "POST",
         data: {
           "id": "p2_init",
@@ -201,7 +201,7 @@ function p2_init_process() {
   });
   $("#p2_home").on("submit", function(event) {
     $.ajax({
-        url: "ajax.php",
+        url: "php/ajax.php",
         type: "POST",
         data: {
           "id": "p2_init"
@@ -217,7 +217,7 @@ function p1_set_word() {
   $("#p1_set_word").on("submit", function(event) {
     event.preventDefault();
     $.ajax({
-        url: "ajax.php",
+        url: "php/ajax.php",
         type: "POST",
         data: {
           "id": "p1_set_word",
@@ -235,7 +235,7 @@ function p2_set_word() {
   $("#p2_set_word").on("submit", function(event) {
     event.preventDefault();
     $.ajax({
-        url: "ajax.php",
+        url: "php/ajax.php",
         type: "POST",
         data: {
           "id": "p2_set_word",
@@ -263,7 +263,7 @@ function p2_set_cursor() {
 
 function read_p1_word() {
   $.ajax({
-      url: "ajax.php",
+      url: "php/ajax.php",
       type: "POST",
       data: {
         "id": "read_p1_word"
@@ -277,7 +277,7 @@ function read_p1_word() {
 
 function read_p2_word() {
   $.ajax({
-      url: "ajax.php",
+      url: "php/ajax.php",
       type: "POST",
       data: {
         "id": "read_p2_word"

@@ -63,7 +63,7 @@ function start_check(){
 
 // クリア条件の提示
 function set_terms(){
-  $stage=file_get_contents("enemy/stage.txt");
+  $stage=file_get_contents("../enemy/stage.txt");
   if($stage==2){
     echo 10;
   }
@@ -77,7 +77,15 @@ function set_terms(){
 
 //攻撃が有効か判定する
 function hit_check(){
-  if((isset($_POST["word1"]) && $_POST["word1"] != "") || (isset($_POST["word2"]) && $_POST["word2"] != "")){
+  $hit=file_get_contents("hit_check.txt");
+  if($hit==1){
+    $hit_count=file_get_contents("hit_count.txt");
+    file_put_contents("hit_count.txt",$hit_count+1);
+    if($hit_count>=2){
+      file_put_contents("hit_check.txt",0);
+      file_put_contents("hit_count.txt",0);
+    }
+
     echo true;
   }
   else{
@@ -87,7 +95,7 @@ function hit_check(){
 
 function check_enemy_hp(){
   //敵HPの読み込み
-  $enemy_hp=file_get_contents("enemy/HitPoint.txt");
+  $enemy_hp=file_get_contents("../enemy/HitPoint.txt");
   if($enemy_hp<=0){
     echo true;
   }
@@ -101,11 +109,13 @@ function p1_init_process(){
   file_put_contents("p1_word.txt","");
   file_put_contents("start_count.txt",0);
   file_put_contents("p1_login.txt",0);
+  file_put_contents("hit_check.txt",0);
+  file_put_contents("hit_count.txt",0);
   //プレイヤー選択画面、またはもう一度遊ぶボタンを押したら
   if(isset($_POST["player1"])){
     file_put_contents("p1_login.txt",1);
-    file_put_contents("enemy/stage.txt",1);
-    $stage_info=file_get_contents("enemy/stage.txt");
+    file_put_contents("../enemy/stage.txt",1);
+    $stage_info=file_get_contents("../enemy/stage.txt");
     $stage = new Stage($stage_info);
     //テキストファイルの初期化
     file_put_contents("p1_word.txt","");
@@ -116,7 +126,7 @@ function p1_init_process(){
   if(isset($_POST["next_stage"])){
     file_put_contents("p1_login.txt",1);
     file_put_contents("p2_login.txt",1);
-    $stage_info=file_get_contents("enemy/stage.txt");
+    $stage_info=file_get_contents("../enemy/stage.txt");
     $stage = new Stage($stage_info);
     //テキストファイルの初期化
     file_put_contents("p1_word.txt","");
@@ -128,12 +138,14 @@ function p2_init_process(){
   file_put_contents("p2_word.txt","");
   file_put_contents("start_count.txt",0);
   file_put_contents("p2_login.txt",0);
+  file_put_contents("hit_check.txt",0);
+  file_put_contents("hit_count.txt",0);
 
 //プレイヤー選択画面、またはもう一度遊ぶボタンを押したら
   if(isset($_POST["player2"])){
     file_put_contents("p2_login.txt",1);
-    file_put_contents("enemy/stage.txt",1);
-    $stage_info=file_get_contents("enemy/stage.txt");
+    file_put_contents("../enemy/stage.txt",1);
+    $stage_info=file_get_contents("../enemy/stage.txt");
     $stage = new Stage($stage_info);
     //テキストファイルの初期化
     file_put_contents("p2_word.txt","");
@@ -145,7 +157,7 @@ function p2_init_process(){
     file_put_contents("p2_login.txt",1);
     file_put_contents("p1_login.txt",1);
 
-    $stage_info=file_get_contents("enemy/stage.txt");
+    $stage_info=file_get_contents("../enemy/stage.txt");
     $stage = new Stage($stage_info);
     //テキストファイルの初期化
     file_put_contents("p2_word.txt","");
@@ -158,13 +170,14 @@ function p1_set_word(){
   if((isset($_POST["word1"])) && ($_POST["word1"]) != ""){
     $set_word=$_POST["word1"]."<br>";
     file_put_contents("p1_word.txt",$set_word,FILE_APPEND);
+    file_put_contents("hit_check.txt",1);
     // 最後に入力した文字を表示する
     echo '<div class="input_word">入力したワード：'.$set_word.'</div>' ;
 
     //敵hpの取得
-    $enemy_hp=file_get_contents("enemy/HitPoint.txt");
+    $enemy_hp=file_get_contents("../enemy/HitPoint.txt");
     //敵HPを1減らしてHitPoint.txtを上書き
-    file_put_contents("enemy/HitPoint.txt",$enemy_hp-1);
+    file_put_contents("../enemy/HitPoint.txt",$enemy_hp-1);
 
   }
 }
@@ -174,13 +187,14 @@ function p2_set_word(){
   if((isset($_POST["word2"])) && ($_POST["word2"]) != ""){
     $set_word=$_POST["word2"]."<br>";
     file_put_contents("p2_word.txt",$set_word,FILE_APPEND);
+    file_put_contents("hit_check.txt",1);
     // 最後に入力した文字を表示する
     echo '<div class="input_word">入力したワード：'.$set_word.'</div>' ;
 
     //敵hpの取得
-    $enemy_hp=file_get_contents("enemy/HitPoint.txt");
+    $enemy_hp=file_get_contents("../enemy/HitPoint.txt");
     //敵HPを1減らしてHitPoint.txtを上書き
-    file_put_contents("enemy/HitPoint.txt",$enemy_hp-1);
+    file_put_contents("../enemy/HitPoint.txt",$enemy_hp-1);
 
   }
 }
@@ -199,8 +213,8 @@ function read_p1_word(){
 
 //敵体力の表示
 function read_hp(){
-  $enemy_hp=file_get_contents("enemy/HitPoint.txt");
-  $stage_info=file_get_contents("enemy/stage.txt");
+  $enemy_hp=file_get_contents("../enemy/HitPoint.txt");
+  $stage_info=file_get_contents("../enemy/stage.txt");
 
   for($i=0; $i<$enemy_hp; $i++){
     echo "■";
@@ -213,7 +227,7 @@ function read_hp(){
 
 // 敵画像の読み込み
 function read_enemy_img(){
-    $enemy_img=file_get_contents("enemy/enemy_img.txt");
+    $enemy_img=file_get_contents("../enemy/enemy_img.txt");
     echo '<image src='.$enemy_img.' width="60%" height="60%">';
 }
 
