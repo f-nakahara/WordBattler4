@@ -17,12 +17,41 @@ header {
   }
   .enemy_hp{
     position: absolute;
-    top:40%;
+    top:70%;
   }
   .home_bt{
     position: fixed;
-    top:70%;
+    top:90%;
     left:45%;
+  }
+  #terms{
+    font-family:'Sawarabi Mincho', sans-serif;
+    font-weight: bold;
+    position:fixed;
+    left:25%;
+    font-size: 300%;
+    background-color: rgb(106, 193, 185);
+    display:inline-block;
+    width:50%;
+    height:25%;
+    padding-top:7%;
+    text-align: center;
+    z-index: 10;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 9px;
+    opacity: 0;
+}
+  #timer{
+    position:absolute;
+    top:20%;
+    left:30%;
+    font-family: "Anton", sans-serif;
+    font-size:300%;
+    text-align: center;
+    display: inline-block;
+    background-color: rgb(78, 71, 74);
+    color:rgb(51, 174, 233);
+    width:10%;
   }
 
   .player2_chat {

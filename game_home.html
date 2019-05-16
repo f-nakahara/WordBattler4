@@ -2,6 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/ajax.js"></script>
   <link rel="stylesheet" href="stylesheet/game_home_stylesheet.css">
 </head>
 
@@ -14,20 +16,25 @@
     <div class="player_bt">
       <div class="player1_button">
         <!-- プレイヤー1の選択ボタン -->
-        <form action="player1.html" method="post">
+        <form action="player1.html" method="post" id="p1_replay">
           <input type="submit" value="プレイヤー1" name="player1">
         </form>
       </div>
       <div class="player2_button">
         <!-- プレイヤー2の選択ボタン -->
-        <form action="player2.html" method="post">
+        <form action="player2.html" method="post" id="p2_replay">
           <input type="submit" value="プレイヤー2" name="player2">
         </form>
       </div>
     </div>
     <div class="chat_button">
       <!-- 観戦モードの選択ボタン -->
-      <a href="chat.html"><input type="button" value="観戦モード"></a>
+      <!-- <a href="chat.html"><input type="button" value="観戦モード"></a> -->
+      <form action="chat.html" method="post" id="chat">
+        <input type="submit" value="観戦画面" name="chat" id="chat_bt">
+      </form>
     </div>
+
+
 </body>
 </html>

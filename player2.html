@@ -3,7 +3,9 @@
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <meta charset="UTF-8">
-  <script src="./ajax.js"></script>
+  <script src="js/ajax.js"></script>
+  <script src="js/anime.js"></script>
+  <script src="anime-master/lib/anime.min.js"></script>
   <link rel="stylesheet" href="stylesheet/enemy.css">
   <link rel="stylesheet" href="stylesheet/player_stylesheet.css">
   <title>プレイヤー2</title>
@@ -14,16 +16,26 @@
     <p>お題に近い言葉を入力してください</p>
 
   </div>
+  <!-- 敵画像の表示 -->
+  <div id="enemy_img"></div>
+
+  <!-- 条件提示 -->
+  <div id="terms"></div>
+
+  <!-- 制限時価の表示 -->
+  <div id="timer"></div>
+
   <!-- 敵HPの表示 -->
   <div class="enemy_hp" id="enemy_hp"></div>
 
   <div class="main">
     <!-- 入力フォーム -->
-    <form action="player2.php"  method="post" id="p2_set_word">
-      <input type="text" name="word2" id="word2">
+    <form method="post" id="p2_set_word">
+      <input type="text" name="word2" id="word2" disabled="true">
       <input type="submit" value="送信">
     </form>
 
+    <!-- 最後に入力したワードを表示する -->
     <div id="p2_input_word"></div>
   </div>
 
@@ -33,9 +45,10 @@
     <form action="game_home.html" class="home_bt" id="p2_home">
       <input type="submit" value="ホームに戻る">
     </form>
-    <!-- もう一度遊ぶボタン -->
-    <form action="player2.html" method="post" class="replay_bt" id="p2_replay">
-      <input type="submit" name="player2" id="player2" value="もう一度遊ぶ">
+
+    <!-- 次に進むボタン -->
+    <form action="player2.html" method="post" class="replay_bt" id="next_stage">
+      <input type="submit" name="next_stage" value="次へ進む" id="next">
     </form>
   </div>
 </body>

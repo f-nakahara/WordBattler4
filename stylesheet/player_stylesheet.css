@@ -1,9 +1,39 @@
 .header {
   text-align: center; }
-  .header .home_bt {
-    display: inline-block; }
-  .header .replay_bt {
-    display: inline-block; }
+
+#terms {
+  font-family: 'Sawarabi Mincho', sans-serif;
+  font-weight: bold;
+  position: fixed;
+  left: 25%;
+  font-size: 300%;
+  background-color: #6ac1b9;
+  display: inline-block;
+  width: 50%;
+  height: 25%;
+  padding-top: 7%;
+  text-align: center;
+  z-index: 10;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 9px;
+  opacity: 0; }
+
+#timer {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  font-family: "Anton", sans-serif;
+  font-size: 300%;
+  text-align: center;
+  display: inline-block;
+  background-color: #4e474a;
+  color: #33aee9;
+  width: 10%; }
+
+.button .home_bt {
+  display: inline-block; }
+.button .replay_bt {
+  display: inline-block; }
 
 .next_stage_bt {
   position: fixed;
