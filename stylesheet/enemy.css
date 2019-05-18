@@ -8,15 +8,16 @@
   font-size: 30px;
   letter-spacing: -14px;
   animation: fadeIn 2s ease 0s 1 normal; }
-  .enemy_hp .game_clear {
-    position: fixed;
-    width: 35%;
-    top: 25%;
-    letter-spacing: 5px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 350%;
-    color: #da3232; }
+
+.game_clear {
+  position: fixed;
+  width: 35%;
+  top: 25%;
+  letter-spacing: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 350%;
+  color: #da3232; }
 
 #enemy_img {
   position: fixed;

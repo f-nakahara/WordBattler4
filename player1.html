@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/jquery-3.4.1.min.js"></script>
   <meta charset="UTF-8">
   <script src="js/ajax.js"></script>
   <script src="js/anime.js"></script>
+  <script src="js/player.js"></script>
   <script src="anime-master/lib/anime.min.js"></script>
   <link rel="stylesheet" href="stylesheet/enemy.css">
   <link rel="stylesheet" href="stylesheet/player_stylesheet.css">
@@ -21,8 +22,7 @@
   <!-- 条件提示 -->
   <div id="terms" class="terms"></div>
   <!-- 制限時間の表示 -->
-  <div id="timer"></div>
-
+  <div id="counter"></div>
 
   <!-- 敵HPの表示 -->
   <div class="enemy_hp" id="enemy_hp"></div>
@@ -30,7 +30,7 @@
   <div class="main">
     <!-- 入力フォーム -->
     <form action=""  method="post" id="p1_set_word">
-      <input type="text" name="word1" id="word1" disabled="true">
+      <input type="text" name="word1" id="word1" >
       <input type="submit"  value="送信">
     </form>
 
@@ -47,9 +47,15 @@
     <form action="player1.html" method="post" class="replay_bt" id="next_stage" >
       <input type="submit" name="next_stage" value="次へ進む" id="next" >
     </form>
-
-
-
   </div>
+
+  <!-- 効果音 -->
+  <audio id="atack_sound" preload="auto">
+    <source src="mp3/gun1.mp3" type="audio/mp3">
+  </audio>
+  <!-- BGM -->
+  <audio id="battle_bgm" preload="auto">
+    <source src="mp3/Crystal_Battle.mp3" type="audio/mp3">
+  </audio>
 </body>
 </html>

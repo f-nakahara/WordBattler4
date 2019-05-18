@@ -18,7 +18,7 @@
   border-radius: 9px;
   opacity: 0; }
 
-#timer {
+#counter {
   position: absolute;
   top: 20%;
   left: 20%;
@@ -28,11 +28,9 @@
   display: inline-block;
   background-color: #4e474a;
   color: #33aee9;
-  width: 10%; }
+  width: 8%; }
 
-.button .home_bt {
-  display: inline-block; }
-.button .replay_bt {
+.button {
   display: inline-block; }
 
 .next_stage_bt {

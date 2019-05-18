@@ -20,7 +20,7 @@
     opacity: 0;
 }
 
-  #timer{
+  #counter{
     position:absolute;
     top:20%;
     left:20%;
@@ -30,20 +30,16 @@
     display: inline-block;
     background-color: rgb(78, 71, 74);
     color:rgb(51, 174, 233);
-    width:10%;
+    width:8%;
   }
 
   .button{
-
-  .home_bt {
-    // float:left;
     display: inline-block;
-  }
+    .home_bt {
+    }
 
-  .replay_bt {
-    // float:right;
-    display: inline-block;
-  }
+    .replay_bt {
+    }
 }
 
 .next_stage_bt{

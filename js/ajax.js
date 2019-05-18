@@ -1,85 +1,135 @@
 function set_terms() {
   var time = 0;
-    $.ajax({
-        url: "php/ajax.php",
-        type: "POST",
-        data: {
-          "id": "start_check"
-        }
-      })
-      .done((data) => {
-        if (data) {
-          $("#word1").prop("disabled", true);
-          $("#word2").prop("disabled", true);
-          setTimeout(function() {
-            $("#terms")
-              .animate({
-                opacity: 1
-              }, 2000)
-              .animate({
-                opacity: 1
-              }, 1000)
-              .animate({
-                opacity: 0
-              }, 2000)
-            $.ajax({
-                url: "php/ajax.php",
-                type: "POST",
-                data: {
-                  "id": "set_terms"
-                }
-              })
-              .done((data) => {
-                $("#terms").html(data + "秒以内に敵を倒せ！");
-                time = Number(data);
-              });
-          }, 1000);
-          setTimeout(function() {
-            $("#word1").prop("disabled", false);
-            $("#word2").prop("disabled", false);
-            p1_set_cursor();
-            p2_set_cursor();
+  var term;
+  var count = 0;
+  $.ajax({
+      url: "php/ajax.php",
+      type: "POST",
+      data: {
+        "id": "start_check"
+      }
+    })
+    .done((data) => {
+      if (data) {
+        setTimeout(function() {
+          $("#terms")
+            .animate({
+              opacity: 1
+            }, 2000)
+            .animate({
+              opacity: 1
+            }, 1000)
+            .animate({
+              opacity: 0
+            }, 2000)
+          $.ajax({
+              url: "php/ajax.php",
+              type: "POST",
+              data: {
+                "id": "set_terms"
+              }
+            })
+            .done((data) => {
+              $("#terms").html(data);
+              time = parseInt(data, 10);
+              term = data;
+            });
+        }, 1000);
+
+        setTimeout(function() {
+          $("#word1").prop("disabled", false);
+          $("#word2").prop("disabled", false);
+          p1_set_cursor();
+          p2_set_cursor();
+          if (term.match(/秒/)) {
             var timeLimit = setInterval(function() {
-              $("#timer").html(time.toFixed(1));
+
+              $("#counter").html(time.toFixed(1));
               time -= 0.1;
               if (time < 5) {
-                $("#timer").css({
+                $("#counter").css({
                   "color": "red",
                   "font-weight": "bold"
                 });
-                $("#timer").animate({
-                  "font-size": "400%",
-                  "width": "12%"
-                }, 5000);
               }
               if (time < 0.0) {
                 clearInterval(timeLimit);
-                $("#timer").html("時間切れ");
+                $("#counter").html("時間切れ");
                 $("#word1").prop("disabled", true);
                 $("#word2").prop("disabled", true);
+                set_terms();
               }
               $.ajax({
-                url:"php/ajax.php",
-                type:"POST",
-                data:{
-                  "id":"check_enemy_hp"
-                }
-              })
-              .done((data)=>{
-                if(data){
-                  clearInterval(timeLimit);
-                  $("#word1").prop("disabled", true);
-                  $("#word2").prop("disabled", true);
-                  set_terms();
-                }
-              })
+                  url: "php/ajax.php",
+                  type: "POST",
+                  data: {
+                    "id": "check_enemy_hp"
+                  }
+                })
+                .done((data) => {
+                  if (data) {
+                    $("#counter").css({
+                      "color": "rgb(51, 174, 233)",
+                      "font-weight": "normal"
+                    });
+                    clearInterval(timeLimit);
+                    $("#word1").prop("disabled", true);
+                    $("#word2").prop("disabled", true);
+                    set_terms();
+                  } else {
+                    // $("#word1").prop("disabled", false);
+                    // $("#word2").prop("disabled", false);
+                  }
+                });
             }, 100);
-          }, 6000);
-        }
-        else{
-          set_terms();
-        }
-      });
+          } else if (term.match(/回/)) {
+            var wordLimit = setInterval(function() {
+              $.ajax({
+                  url: "php/ajax.php",
+                  type: "POST",
+                  data: {
+                    "id": "attack_count"
+                  }
+                })
+                .done((data) => {
+                  count = Number(data);
+                  $("#counter").html("残り" + (time - count) + "回");
+                  if (time - count <= 0) {
+                    clearInterval(wordLimit);
+                    $("#word1").prop("disabled", true);
+                    $("#word2").prop("disabled", true);
+                    set_terms();
+                  }
+                });
+              $.ajax({
+                  url: "php/ajax.php",
+                  type: "POST",
+                  data: {
+                    "id": "check_enemy_hp"
+                  }
+                })
+                .done((data) => {
+                  if (data) {
+                    $("#counter").css({
+                      "color": "rgb(51, 174, 233)",
+                      "font-weight": "normal"
+                    });
+                    clearInterval(wordLimit);
+                    $("#word1").prop("disabled", true);
+                    $("#word2").prop("disabled", true);
+                    set_terms();
+                  } else {
+                    // $("#word1").prop("disabled", false);
+                    // $("#word2").prop("disabled", false);
+                  }
+                });
+            }, 500);
+
+          }
+        }, 6000);
+
+      }
+    });
 }
 
 function next_stage() {
@@ -90,13 +140,9 @@ function next_stage() {
           url: "php/ajax.php",
           type: "POST",
           data: {
-            "id": "p1_init",
-            "next_stage": "next_stage"
+            "id": "next_stage"
           }
         })
-        .done((data) => {
-
-        });
     });
   });
 }
@@ -149,69 +195,12 @@ function set_enemy_img() {
   $("#enemy_img").show();
 }
 
-function chat_process(){
-  $("#chat").on("submit",function(event){
+function chat_process() {
+  $("#chat").on("click", function(event) {
     event.preventDefault();
   })
 }
 
-function p1_init_process() {
-  $("#p1_replay").on("submit", function(event) {
-    $.ajax({
-        url: "php/ajax.php",
-        type: "POST",
-        data: {
-          "id": "p1_init",
-          "player1": "player1"
-        }
-      })
-      .done((data) => {
-
-      });
-
-  });
-  $("#p1_home").on("submit", function(event) {
-    $.ajax({
-        url: "php/ajax.php",
-        type: "POST",
-        data: {
-          "id": "p1_init"
-        }
-      })
-      .done((data) => {
-
-      });
-  });
-}
-
-function p2_init_process() {
-  $("#p2_replay").on("submit", function(event) {
-
-    $.ajax({
-        url: "php/ajax.php",
-        type: "POST",
-        data: {
-          "id": "p2_init",
-          "player2": "player2"
-        }
-      })
-      .done((data) => {
-
-      });
-  });
-  $("#p2_home").on("submit", function(event) {
-    $.ajax({
-        url: "php/ajax.php",
-        type: "POST",
-        data: {
-          "id": "p2_init"
-        }
-      })
-      .done((data) => {
-
-      });
-  });
-}
 
 function p1_set_word() {
   $("#p1_set_word").on("submit", function(event) {
@@ -250,15 +239,11 @@ function p2_set_word() {
 }
 
 function p1_set_cursor() {
-  $(function() {
-    document.getElementById('word1').focus();
-  });
+    $('#word1').focus();
 }
 
 function p2_set_cursor() {
-  $(function() {
-    document.getElementById('word2').focus();
-  });
+    $('#word2').focus();
 }
 
 function read_p1_word() {
@@ -289,19 +274,58 @@ function read_p2_word() {
     });
 }
 
+function p1_home() {
+  $("#p1_home").on("submit", function(event) {
+    $.ajax({
+        url: "php/ajax.php",
+        type: "POST",
+        data: {
+          "id": "p1_reset"
+        }
+      })
+  });
+}
 
+function p2_home() {
+  $("#p2_home").on("submit", function(event) {
+    $.ajax({
+        url: "php/ajax.php",
+        type: "POST",
+        data: {
+          "id": "p2_reset"
+        }
+      })
+  });
+}
+
+function game_reset() {
+  $("#reset_bt").on("click", function() {
+    $.ajax({
+      url:"php/ajax.php",
+      type:"POST",
+      data:{
+        "id":"p1_reset"
+      }
+    })
+    $.ajax({
+      url:"php/ajax.php",
+      type:"POST",
+      data:{
+        "id":"p2_reset"
+      }
+    })
+  });
+}
 
 $(function() {
-  //敵情報の取得や、テキストファイルの初期化
-  p1_init_process();
-  p2_init_process();
+  game_reset();
 
+  p1_home();
+  p2_home();
 
   //プレイヤーの画面にあらかじめカーソルをセットしておく
   p1_set_cursor();
   p2_set_cursor();
-
-
 
   //プレイヤーの入力したワードをセットする
   p1_set_word();
@@ -310,10 +334,8 @@ $(function() {
   //敵の体力を表示。0以下の場合はGAME CLEARを表示。
   set_enemy_hp();
 
-  check_enemy_hp();
   // 敵画像の表示
   set_enemy_img();
-
 
   // 次のステージを表示する
   next_stage();
@@ -323,6 +345,8 @@ $(function() {
 
   //100ms毎に実行。他の画面で更新した内容をリアルタイムで表示するため。
   setInterval(function() {
+    //クリア条件の提示
+    set_terms();
 
     //敵の体力を表示。0以下の場合はGAME CLEARを表示。
     set_enemy_hp();

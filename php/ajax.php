@@ -38,20 +38,83 @@ switch ($_POST["id"]) {
   case "start_check":
     start_check();
     break;
+  case "next_stage":
+    set_next_stage();
+    break;
+  case "p1_reset":
+    p1_reset();
+    break;
+  case "p2_reset":
+    p2_reset();
+    break;
+  case "p1_login_check":
+    p1_login_check();
+    break;
+  case "p2_login_check":
+    p2_login_check();
+    break;
+  case "attack_count":
+    attack_count();
+    break;
+}
+function attack_count(){
+  $attack_count=file_get_contents("attack_count.txt");
+  echo $attack_count;
+}
+
+function p1_login_check(){
+  $p1_login=file_get_contents("p1_login.txt");
+  if($p1_login==0){
+    echo true;
+  }
+  else{
+    echo false;
+  }
+}
+
+function p2_login_check(){
+  $p2_login=file_get_contents("p2_login.txt");
+  if($p2_login==0){
+    echo true;
+  }
+  else{
+    echo false;
+  }
+}
+
+function p2_reset(){
+  file_put_contents("p2_word.txt","");
+  file_put_contents("p2_login.txt",0);
+  file_put_contents("hit_check.txt",0);
+  file_put_contents("hit_count.txt",0);
+  file_put_contents("start_count.txt",0);
+  file_put_contents("timing.txt",0);
+  file_put_contents("attack_count.txt",0);
+}
+
+function p1_reset(){
+  file_put_contents("p1_word.txt","");
+  file_put_contents("p1_login.txt",0);
+  file_put_contents("hit_check.txt",0);
+  file_put_contents("hit_count.txt",0);
+  file_put_contents("start_count.txt",0);
+  file_put_contents("timing.txt",0);
+  file_put_contents("attack_count.txt",0);
 }
 
 // ゲームスタートできるタイミングかチェック
 function start_check(){
   $p1_login=file_get_contents("p1_login.txt");
   $p2_login=file_get_contents("p2_login.txt");
-  if($p1_login==1 && $p2_login==1){
+  $timing=file_get_contents("timing.txt");
+  // if($p1_login==1 && $p2_login==1){
+  if($timing==2 && $p1_login==1 && $p2_login==1){
     $start_count=file_get_contents("start_count.txt");
     file_put_contents("start_count.txt",$start_count+1);
     $start_count=file_get_contents("start_count.txt");
     if($start_count==2){
       file_put_contents("start_count.txt",0);
-      file_put_contents("p1_login.txt",0);
-      file_put_contents("p2_login.txt",0);
+      file_put_contents("timing.txt",0);
     }
     echo true;
   }
@@ -63,16 +126,8 @@ function start_check(){
 
 // クリア条件の提示
 function set_terms(){
-  $stage=file_get_contents("../enemy/stage.txt");
-  if($stage==2){
-    echo 10;
-  }
-  else if($stage==3){
-    echo 20;
-  }
-  else{
-    echo 30;
-  }
+  $term=file_get_contents("../enemy/term.txt");
+  echo $term;
 }
 
 //攻撃が有効か判定する
@@ -104,71 +159,49 @@ function check_enemy_hp(){
   }
 }
 
+function set_next_stage(){
+  //テキストファイルの初期化
+  file_put_contents("p1_word.txt","");
+  file_put_contents("p2_word.txt","");
+  file_put_contents("timing.txt",2);
+  file_put_contents("attack_count.txt",0);
+  $stage_info=file_get_contents("../enemy/stage.txt");
+  $stage = new Stage($stage_info);
+
+}
+
+
 //初期処理
 function p1_init_process(){
+  //プレイヤー選択画面からボタンが押されたら
+  $timing=file_get_contents("timing.txt");
+  file_put_contents("timing.txt",$timing+1);
+  file_put_contents("p1_login.txt",1);
+  file_put_contents("../enemy/stage.txt",1);
+  $stage_info=file_get_contents("../enemy/stage.txt");
+  $stage = new Stage($stage_info);
+  //テキストファイルの初期化
   file_put_contents("p1_word.txt","");
-  file_put_contents("start_count.txt",0);
-  file_put_contents("p1_login.txt",0);
-  file_put_contents("hit_check.txt",0);
-  file_put_contents("hit_count.txt",0);
-  //プレイヤー選択画面、またはもう一度遊ぶボタンを押したら
-  if(isset($_POST["player1"])){
-    file_put_contents("p1_login.txt",1);
-    file_put_contents("../enemy/stage.txt",1);
-    $stage_info=file_get_contents("../enemy/stage.txt");
-    $stage = new Stage($stage_info);
-    //テキストファイルの初期化
-    file_put_contents("p1_word.txt","");
-
-  }
-
-    //ステージの設定
-  if(isset($_POST["next_stage"])){
-    file_put_contents("p1_login.txt",1);
-    file_put_contents("p2_login.txt",1);
-    $stage_info=file_get_contents("../enemy/stage.txt");
-    $stage = new Stage($stage_info);
-    //テキストファイルの初期化
-    file_put_contents("p1_word.txt","");
-    file_put_contents("p2_word.txt","");
-  }
 }
 
 function p2_init_process(){
+  //プレイヤー選択画面、またはもう一度遊ぶボタンを押したら
+  $timing=file_get_contents("timing.txt");
+  file_put_contents("timing.txt",$timing+1);
+  file_put_contents("p2_login.txt",1);
+  file_put_contents("../enemy/stage.txt",1);
+  $stage_info=file_get_contents("../enemy/stage.txt");
+  $stage = new Stage($stage_info);
+  //テキストファイルの初期化
   file_put_contents("p2_word.txt","");
-  file_put_contents("start_count.txt",0);
-  file_put_contents("p2_login.txt",0);
-  file_put_contents("hit_check.txt",0);
-  file_put_contents("hit_count.txt",0);
-
-//プレイヤー選択画面、またはもう一度遊ぶボタンを押したら
-  if(isset($_POST["player2"])){
-    file_put_contents("p2_login.txt",1);
-    file_put_contents("../enemy/stage.txt",1);
-    $stage_info=file_get_contents("../enemy/stage.txt");
-    $stage = new Stage($stage_info);
-    //テキストファイルの初期化
-    file_put_contents("p2_word.txt","");
-
-  }
-
-    //ステージの設定
-  if(isset($_POST["next_stage"])){
-    file_put_contents("p2_login.txt",1);
-    file_put_contents("p1_login.txt",1);
-
-    $stage_info=file_get_contents("../enemy/stage.txt");
-    $stage = new Stage($stage_info);
-    //テキストファイルの初期化
-    file_put_contents("p2_word.txt","");
-    file_put_contents("p1_word.txt","");
-  }
 }
 
 //プレイヤー1の入力したワードをp1_word.txtに追加
 function p1_set_word(){
   if((isset($_POST["word1"])) && ($_POST["word1"]) != ""){
     $set_word=$_POST["word1"]."<br>";
+    $attack=file_get_contents("attack_count.txt");
+    file_put_contents("attack_count.txt",$attack+1);
     file_put_contents("p1_word.txt",$set_word,FILE_APPEND);
     file_put_contents("hit_check.txt",1);
     // 最後に入力した文字を表示する
@@ -186,6 +219,8 @@ function p1_set_word(){
 function p2_set_word(){
   if((isset($_POST["word2"])) && ($_POST["word2"]) != ""){
     $set_word=$_POST["word2"]."<br>";
+    $attack=file_get_contents("attack_count.txt");
+    file_put_contents("attack_count.txt",$attack+1);
     file_put_contents("p2_word.txt",$set_word,FILE_APPEND);
     file_put_contents("hit_check.txt",1);
     // 最後に入力した文字を表示する

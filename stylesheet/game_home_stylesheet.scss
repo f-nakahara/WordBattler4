@@ -8,19 +8,42 @@
   margin-top: 60px;
   text-align: center;
 
-
   .player_bt {
-    .player1_button {
       display: inline-block;
-    }
 
-    .player2_button {
-      display: inline-block;
-      margin-bottom:5px;
+      .p1_bt{
+        background: #668ad8;/*ボタン色*/
+        color: #FFF;
+        border-bottom: solid 4px #627295;
+      }
+
+      .p2_bt{
+        background: #d76565;/*ボタン色*/
+        color: #FFF;
+        border-bottom: solid 4px #956262;
+      }
     }
 
     .chat_button {
-
+      .chat_bt{
+        margin-top: 5px;
+        background: #6a6a6a;/*ボタン色*/
+        color: #FFF;
+        border-bottom: solid 4px #393939;
+        width:218px;
+      }
     }
-  }
+
+    .bt {
+      display: inline-block;
+      padding: 0.5em 1em;
+      text-decoration: none;
+      border-radius: 3px;
+    }
+    .bt:active {
+      /*ボタンを押したとき*/
+      -webkit-transform: translateY(4px);
+      transform: translateY(4px);/*下に動く*/
+      border-bottom: none;/*線を消す*/
+    }
 }
